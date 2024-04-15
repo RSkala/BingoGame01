@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 // -----------------
 // Bingo Numbers
@@ -31,6 +32,7 @@ public class BingoGame : MonoBehaviour
     [SerializeField] BingoCard _bingoCard;
 
     [SerializeField] SpriteRenderer _currentBallPickSpriteRenderer;
+    [SerializeField] Button _restartButton;
 
     public const int NUM_BINGO_COLS = 5;
     public const int NUM_BINGO_ROWS = 5;
@@ -45,6 +47,7 @@ public class BingoGame : MonoBehaviour
 
     void Start()
     {
+        _restartButton.onClick.AddListener(OnRestartButtonClicked);
         InitGame();
     }
 

@@ -34,8 +34,10 @@ public class BingoCell : MonoBehaviour
         SpriteRenderer bingoNumberSpriteRenderer = _bingoNumber.GetComponent<SpriteRenderer>();
         bingoNumberSpriteRenderer.sprite = bingoNumberSprite;
 
-        // Hide daub marker for all BingoCells
+        // Show the BingoNumber, hide the Daub marker, and enable input
+        _bingoNumber.SetActive(true);
         _daub.SetActive(false);
+        _collider2D.enabled = true;
 
         // For the Free Space, mark both the BingoNumber and the Daub hidden (this will show the center star) and disable input
         if(IsFreeSpace)
