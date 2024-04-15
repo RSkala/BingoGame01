@@ -20,7 +20,7 @@ public class GameTimer : MonoBehaviour
 
     void InitTimeText()
     {
-        //timerText.text = "";
+        timerText.text = "";
     }
 
     void StopTimer()
@@ -63,6 +63,6 @@ public class GameTimer : MonoBehaviour
     {
         time = Mathf.Ceil(time);
         //Debug.Log("time: " + time);
-        //timerText.text = ((int)time).ToString();
+        timerText.text = ((int)time).ToString();
     }
 }
