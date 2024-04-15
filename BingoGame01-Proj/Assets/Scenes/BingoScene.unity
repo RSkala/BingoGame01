@@ -954,6 +954,7 @@ GameObject:
   - component: {fileID: 739931045}
   - component: {fileID: 739931047}
   - component: {fileID: 739931046}
+  - component: {fileID: 739931048}
   m_Layer: 0
   m_Name: '[BingoGame]'
   m_TagString: Untagged
@@ -1023,6 +1024,19 @@ MonoBehaviour:
   _bingoCard: {fileID: 1011403994}
   _currentBallPickSpriteRenderer: {fileID: 2028318357}
   _restartButton: {fileID: 1991692502}
+--- !u!114 &739931048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739931044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a93f15831a444fcb51a9f3e0f581a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 0}
 --- !u!1001 &747966003
 PrefabInstance:
   m_ObjectHideFlags: 0

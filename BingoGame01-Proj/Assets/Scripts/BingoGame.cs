@@ -39,14 +39,20 @@ public class BingoGame : MonoBehaviour
     public const int NUM_BINGO_CELLS = 25;
     public const int FREE_SPACE_INDEX = 12;
 
+    const float GAME_TIME = 30.0f;
+
     // The Bingo Number picks for the game
     List<int> _bingoNumberPicks;
 
     // Current Number pick
     int _currentNumberPick;
 
+    // Timer for the game
+    GameTimer _gameTimer;
+
     void Start()
     {
+        _gameTimer = GetComponent<GameTimer>();
         _restartButton.onClick.AddListener(OnRestartButtonClicked);
         InitGame();
     }
@@ -84,7 +90,7 @@ public class BingoGame : MonoBehaviour
         ShuffleBingoNumberPicks();
         RemoveFreeSpaceNumberFromPicks();
         DrawPick();
-        //StartGameTimer();
+        StartGameTimer();
 
         // TODO: 
         // * Handle card complete
@@ -182,10 +188,14 @@ public class BingoGame : MonoBehaviour
         _currentBallPickSpriteRenderer.sprite = bingoBallSprite;
     }
 
+    void StartGameTimer()
+    {
+        _gameTimer.StartTimer(GAME_TIME, OnGameTimeElapsed);
+    }
+
     void OnBingoCellClicked(BingoCell clickedBingoCell)
     {
-        Debug.Log("OnBingoCellClicked - clickedBingoCell: " + clickedBingoCell.BingoNumber);
-
+        //Debug.Log("OnBingoCellClicked - clickedBingoCell: " + clickedBingoCell.BingoNumber);
         if(_currentNumberPick == clickedBingoCell.BingoNumber)
         {
             clickedBingoCell.DaubCell();
