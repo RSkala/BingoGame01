@@ -27,6 +27,9 @@ using UnityEngine.InputSystem;
 
 public class BingoGame : MonoBehaviour
 {
+    // The Bingo Card that is being played
+    [SerializeField] BingoCard _bingoCard;
+
     public const int NUM_BINGO_COLS = 5;
     public const int NUM_BINGO_ROWS = 5;
     public const int NUM_BINGO_CELLS = 25;
@@ -34,6 +37,9 @@ public class BingoGame : MonoBehaviour
 
     // The Bingo Number picks for the game
     List<int> _bingoNumberPicks;
+
+    // Current Number pick
+    int _currentNumberPick;
 
     void Start()
     {
@@ -53,11 +59,13 @@ public class BingoGame : MonoBehaviour
         {
             Vector3 mousePosition = mouse.position.ReadValue();
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);
-
             RaycastHit2D raycastHit2D = Physics2D.Raycast(mouseWorldPos, Vector3.forward);
             if(raycastHit2D.collider != null)
             {
-                Debug.Log("collider hit " + raycastHit2D.collider.gameObject.name);
+                if(raycastHit2D.collider.gameObject.TryGetComponent<BingoCell>(out var clickedBingoCell))
+                {
+                    clickedBingoCell.OnBingoCellClicked();
+                }
             }
         }
     }
@@ -67,10 +75,10 @@ public class BingoGame : MonoBehaviour
         // WIP
         //DestroyCurrentBingoCard();
         InitBingoNumbers();
-        //InitBingoCard();
+        InitBingoCard();
         ShuffleBingoNumberPicks();
-        //RemoveFreeSpaceNumberFromPicks();
-        //DrawPick();
+        RemoveFreeSpaceNumberFromPicks();
+        DrawPick();
         //StartGameTimer();
 
         // TODO: 
@@ -133,6 +141,12 @@ public class BingoGame : MonoBehaviour
         bingoNumberList = bingoNumberList.OrderBy(elem => Random.Range(0, int.MaxValue)).ToList();
     }
 
+    void InitBingoCard()
+    {
+        //_bingoCard = Instantiate(bingoCardPrefab, canvasTransform).GetComponent<BingoCard>();
+        _bingoCard.Init(_bingoNumberPicks, OnBingoCellClicked);
+    }
+
     void ShuffleBingoNumberPicks()
     {
         ShuffleBingoNumberList(ref _bingoNumberPicks);
@@ -145,9 +159,44 @@ public class BingoGame : MonoBehaviour
         Debug.Log(bingoNumbers);
     }
 
+    void DrawPick()
+    {
+        if(_bingoNumberPicks.Count == 0)
+        {
+            Debug.Log("Out of Picks!");
+            return;
+        }
+
+        // Pull from the front
+        _currentNumberPick = _bingoNumberPicks[0];
+        _bingoNumberPicks.RemoveAt(0);
+
+        Debug.Log("_currentNumberPick: " + _currentNumberPick);
+
+        // TODO: Display the current number pick ball image
+        //currentNumberPickText.text = _currentNumberPick.ToString();
+    }
+
+    void OnBingoCellClicked(BingoCell clickedBingoCell)
+    {
+        Debug.Log("OnBingoCellClicked - clickedBingoCell: " + clickedBingoCell.BingoNumber);
+        // clickedBingoCell.DaubCell(); // Debug: Daub every cell when clicked
+
+        if(_currentNumberPick == clickedBingoCell.BingoNumber)
+        {
+            clickedBingoCell.DaubCell();
+            DrawPick();
+        }
+        else
+        {
+            Debug.Log("Wrong Cell Selected - _currentNumberPick = " + _currentNumberPick);
+        }
+    }
+
     void RemoveFreeSpaceNumberFromPicks()
     {
-        //_bingoNumberPicks.Remove(_bingoCard.GetFreeSpaceBingoNumber());
+        Debug.Log("RemoveFreeSpaceNumberFromPicks: " + _bingoCard.GetFreeSpaceBingoNumber());
+        _bingoNumberPicks.Remove(_bingoCard.GetFreeSpaceBingoNumber());
     }
 
     void OnRestartButtonClicked()
