@@ -25,8 +25,14 @@ public class BingoCell : MonoBehaviour
         _bingoCellIndex = bingoCellIndex;
         BingoNumber = bingoNumber;
         _onBingoCellClickedCallback = onBingoCellClickedCallback;
+        
+        // Get the image according to the bingo number
+        string bingoNumberSpritePath = string.Format("BingoNumbers/{0}", BingoNumber);
+        Sprite bingoNumberSprite = Resources.Load<Sprite>(bingoNumberSpritePath);
 
-        // TODO: Get the image according to the bingo number
+        // Set the Bingo Number sprite
+        SpriteRenderer bingoNumberSpriteRenderer = _bingoNumber.GetComponent<SpriteRenderer>();
+        bingoNumberSpriteRenderer.sprite = bingoNumberSprite;
 
         // Hide daub marker for all BingoCells
         _daub.SetActive(false);
