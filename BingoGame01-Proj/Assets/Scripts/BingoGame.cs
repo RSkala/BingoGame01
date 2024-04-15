@@ -30,6 +30,8 @@ public class BingoGame : MonoBehaviour
     // The Bingo Card that is being played
     [SerializeField] BingoCard _bingoCard;
 
+    [SerializeField] SpriteRenderer _currentBallPickSpriteRenderer;
+
     public const int NUM_BINGO_COLS = 5;
     public const int NUM_BINGO_ROWS = 5;
     public const int NUM_BINGO_CELLS = 25;
@@ -171,16 +173,15 @@ public class BingoGame : MonoBehaviour
         _currentNumberPick = _bingoNumberPicks[0];
         _bingoNumberPicks.RemoveAt(0);
 
-        Debug.Log("_currentNumberPick: " + _currentNumberPick);
-
-        // TODO: Display the current number pick ball image
-        //currentNumberPickText.text = _currentNumberPick.ToString();
+        // Get the ball pick image according to the current number pick - RKS TODO: Cache these so they aren't loaded each pick
+        string bingoBallSpritePath = string.Format("BingoBalls/{0} Ball", _currentNumberPick);
+        Sprite bingoBallSprite = Resources.Load<Sprite>(bingoBallSpritePath);
+        _currentBallPickSpriteRenderer.sprite = bingoBallSprite;
     }
 
     void OnBingoCellClicked(BingoCell clickedBingoCell)
     {
         Debug.Log("OnBingoCellClicked - clickedBingoCell: " + clickedBingoCell.BingoNumber);
-        // clickedBingoCell.DaubCell(); // Debug: Daub every cell when clicked
 
         if(_currentNumberPick == clickedBingoCell.BingoNumber)
         {
