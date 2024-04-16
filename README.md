@@ -1,6 +1,7 @@
 # 30 Second Bingo
 
-Original Bingo Game built in Unity
+Original speed Bingo Game built in Unity<br>
+Play it [here](https://rskala.itch.io/30-second-bingo?secret=Sae1FWK7Bp0w7VYFtIiGStFZiU)!
 
 <img src="./Screenshots/Bingo-Game-Screenshot-001.png" width=450/>
 
