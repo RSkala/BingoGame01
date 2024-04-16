@@ -955,6 +955,7 @@ GameObject:
   - component: {fileID: 739931047}
   - component: {fileID: 739931046}
   - component: {fileID: 739931048}
+  - component: {fileID: 739931049}
   m_Layer: 0
   m_Name: '[BingoGame]'
   m_TagString: Untagged
@@ -1037,6 +1038,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 980219628}
+--- !u!114 &739931049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739931044}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31057ef324a04478bb4f7d469b3cdc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &747966003
 PrefabInstance:
   m_ObjectHideFlags: 0
