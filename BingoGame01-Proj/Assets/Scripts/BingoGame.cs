@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -59,10 +58,14 @@ public class BingoGame : MonoBehaviour
 
     void Update()
     {
-        CheckBingoCellMouseClick();
+        bool bingoCellDaubedFromMouse = CheckBingoCellMouseClick();
+        if(!bingoCellDaubedFromMouse)
+        {
+            CheckBingoCellTouch();
+        }
     }
 
-    void CheckBingoCellMouseClick()
+    bool CheckBingoCellMouseClick()
     {
         // Handle mouse click on Bingo Cell
         Mouse mouse = Mouse.current;
@@ -71,14 +74,40 @@ public class BingoGame : MonoBehaviour
             Vector3 mousePosition = mouse.position.ReadValue();
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);
             RaycastHit2D raycastHit2D = Physics2D.Raycast(mouseWorldPos, Vector3.forward);
-            if(raycastHit2D.collider != null)
+            return CheckAndDaubClickedBingoCell(raycastHit2D.collider);
+        }
+        return false;
+    }
+
+    void CheckBingoCellTouch()
+    {
+        // Handle touch on Bingo Cell
+        Touchscreen touchscreen = Touchscreen.current;
+        if(touchscreen != null)
+        {
+            var primaryTouch = touchscreen.primaryTouch;
+            var touchPhase = primaryTouch.phase.ReadValue();
+            if(touchPhase == UnityEngine.InputSystem.TouchPhase.Began)
             {
-                if(raycastHit2D.collider.gameObject.TryGetComponent<BingoCell>(out var clickedBingoCell))
-                {
-                    clickedBingoCell.OnBingoCellClicked();
-                }
+                Vector2 touchPosition = primaryTouch.position.ReadValue();
+                Vector3 touchWorldPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+                RaycastHit2D raycastHit2D = Physics2D.Raycast(touchWorldPosition, Vector3.forward);
+                CheckAndDaubClickedBingoCell(raycastHit2D.collider);
+            } 
+        }
+    }
+
+    bool CheckAndDaubClickedBingoCell(Collider2D collider2D)
+    {
+        if(collider2D != null)
+        {
+            if(collider2D.gameObject.TryGetComponent<BingoCell>(out var clickedBingoCell))
+            {
+                clickedBingoCell.OnBingoCellClicked();
+                return true;
             }
         }
+        return false;
     }
 
     void InitGame()
