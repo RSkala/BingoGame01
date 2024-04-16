@@ -198,11 +198,13 @@ public class BingoGame : MonoBehaviour
         //Debug.Log("OnBingoCellClicked - clickedBingoCell: " + clickedBingoCell.BingoNumber);
         if(_currentNumberPick == clickedBingoCell.BingoNumber)
         {
+            AudioPlayback.Instance.PlaySound(AudioPlayback.SFX.CorrectDaub);
             clickedBingoCell.DaubCell();
             DrawPick();
         }
         else
         {
+            AudioPlayback.Instance.PlaySound(AudioPlayback.SFX.WrongDaub);
             Debug.Log("Wrong Cell Selected - _currentNumberPick = " + _currentNumberPick);
         }
     }
@@ -215,6 +217,7 @@ public class BingoGame : MonoBehaviour
 
     void OnRestartButtonClicked()
     {
+        AudioPlayback.Instance.PlaySound(AudioPlayback.SFX.ButtonClick);
         InitGame();
     }
 
