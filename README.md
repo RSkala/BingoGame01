@@ -19,4 +19,11 @@ This was an original concept I had for a quick-playing Bingo game a while back. 
 I still need to implement a proper game over and game loop.
 
 #
+Assets created by Melchex and legally purchased from [GameDev Market](https://www.gamedevmarket.net/member/melschex):
+
+#
+
+
+
+
 
